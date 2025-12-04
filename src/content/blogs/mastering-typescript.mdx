@@ -1,0 +1,291 @@
+---
+title: "Mastering TypeScript: Tips and Best Practices"
+description: "Level up your TypeScript skills with advanced patterns, best practices, and real-world examples for building type-safe applications."
+date: "2024-03-05"
+author: "John Doe"
+tags: ["TypeScript", "JavaScript", "Programming", "Best Practices"]
+published: true
+---
+
+# Mastering TypeScript: Tips and Best Practices
+
+TypeScript has become the de facto standard for building large-scale JavaScript applications. Let's explore advanced patterns and best practices to write better TypeScript code.
+
+## Type Inference
+
+Let TypeScript infer types when possible:
+
+```typescript
+// Good - Type is inferred
+const user = {
+  name: "John",
+  age: 30
+}
+
+// Unnecessary - Type is obvious
+const user: { name: string; age: number } = {
+  name: "John",
+  age: 30
+}
+```
+
+## Union Types
+
+Use union types for flexible yet type-safe code:
+
+```typescript
+type Status = "pending" | "approved" | "rejected"
+
+function handleStatus(status: Status) {
+  switch (status) {
+    case "pending":
+      return "Waiting for review"
+    case "approved":
+      return "Request approved"
+    case "rejected":
+      return "Request rejected"
+  }
+}
+```
+
+## Utility Types
+
+Leverage built-in utility types:
+
+```typescript
+interface User {
+  id: string
+  name: string
+  email: string
+  age: number
+}
+
+// Pick specific properties
+type UserPreview = Pick<User, "id" | "name">
+
+// Make all properties optional
+type PartialUser = Partial<User>
+
+// Make all properties required
+type RequiredUser = Required<User>
+
+// Make all properties readonly
+type ReadonlyUser = Readonly<User>
+```
+
+## Generic Types
+
+Create reusable, type-safe functions:
+
+```typescript
+function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
+  return obj[key]
+}
+
+const user = { name: "John", age: 30 }
+const name = getProperty(user, "name") // Type: string
+const age = getProperty(user, "age")   // Type: number
+```
+
+## Discriminated Unions
+
+Model complex state with discriminated unions:
+
+```typescript
+type Success<T> = {
+  status: "success"
+  data: T
+}
+
+type Error = {
+  status: "error"
+  message: string
+}
+
+type Result<T> = Success<T> | Error
+
+function handleResult<T>(result: Result<T>) {
+  if (result.status === "success") {
+    console.log(result.data) // TypeScript knows data exists
+  } else {
+    console.error(result.message) // TypeScript knows message exists
+  }
+}
+```
+
+## Type Guards
+
+Create custom type guards for runtime checks:
+
+```typescript
+interface Dog {
+  breed: string
+  bark: () => void
+}
+
+interface Cat {
+  color: string
+  meow: () => void
+}
+
+type Pet = Dog | Cat
+
+function isDog(pet: Pet): pet is Dog {
+  return (pet as Dog).bark !== undefined
+}
+
+function playWithPet(pet: Pet) {
+  if (isDog(pet)) {
+    pet.bark() // TypeScript knows pet is Dog
+  } else {
+    pet.meow() // TypeScript knows pet is Cat
+  }
+}
+```
+
+## Advanced Patterns
+
+### Branded Types
+
+Create nominal types in a structural type system:
+
+```typescript
+type Brand<K, T> = K & { __brand: T }
+
+type UserId = Brand<string, "UserId">
+type ProductId = Brand<string, "ProductId">
+
+function getUserById(id: UserId) {
+  // ...
+}
+
+const userId = "123" as UserId
+const productId = "456" as ProductId
+
+getUserById(userId) // OK
+getUserById(productId) // Error!
+```
+
+### Builder Pattern
+
+Implement type-safe builders:
+
+```typescript
+class QueryBuilder<T> {
+  private query: Partial<T> = {}
+  
+  where<K extends keyof T>(key: K, value: T[K]): QueryBuilder<T> {
+    this.query[key] = value
+    return this
+  }
+  
+  build(): Partial<T> {
+    return this.query
+  }
+}
+
+interface User {
+  name: string
+  age: number
+  email: string
+}
+
+const query = new QueryBuilder<User>()
+  .where("name", "John")
+  .where("age", 30)
+  .build()
+```
+
+## Best Practices
+
+### 1. Use `unknown` Instead of `any`
+
+```typescript
+// Bad
+function processValue(value: any) {
+  return value.toUpperCase() // No type checking
+}
+
+// Good
+function processValue(value: unknown) {
+  if (typeof value === "string") {
+    return value.toUpperCase() // Type-safe
+  }
+  throw new Error("Value must be a string")
+}
+```
+
+### 2. Prefer Interfaces for Objects
+
+```typescript
+// Good for objects
+interface User {
+  name: string
+  age: number
+}
+
+// Good for unions and primitives
+type Status = "active" | "inactive"
+type ID = string | number
+```
+
+### 3. Use `const` Assertions
+
+```typescript
+// Mutable types
+const colors = ["red", "green", "blue"]
+// Type: string[]
+
+// Immutable types with const assertion
+const colors = ["red", "green", "blue"] as const
+// Type: readonly ["red", "green", "blue"]
+```
+
+### 4. Avoid Type Assertions
+
+```typescript
+// Bad - Loses type safety
+const input = document.querySelector("#input") as HTMLInputElement
+
+// Good - Type guard
+const input = document.querySelector("#input")
+if (input instanceof HTMLInputElement) {
+  input.value = "Hello"
+}
+```
+
+## Configuration Tips
+
+Use strict TypeScript settings in `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  }
+}
+```
+
+## Conclusion
+
+Mastering TypeScript takes practice, but the benefits are worth it:
+
+- Catch errors before runtime
+- Better IDE support and autocomplete
+- Self-documenting code
+- Easier refactoring
+- Improved code quality
+
+Start applying these patterns in your projects and watch your code quality improve!
+
+## Resources
+
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
+- [TypeScript Deep Dive](https://basarat.gitbook.io/typescript/)
+- [Type Challenges](https://github.com/type-challenges/type-challenges)

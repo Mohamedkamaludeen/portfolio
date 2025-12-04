@@ -1,0 +1,141 @@
+---
+title: "Getting Started with Next.js 14 and App Router"
+description: "Learn how to build modern web applications with Next.js 14's new App Router, server components, and improved performance features."
+date: "2024-01-15"
+author: "John Doe"
+tags: ["Next.js", "React", "Web Development", "Tutorial"]
+published: true
+---
+
+# Getting Started with Next.js 14 and App Router
+
+Next.js 14 introduces significant improvements to the App Router, making it more powerful and developer-friendly. In this tutorial, we'll explore the key features and how to get started.
+
+## What's New in Next.js 14?
+
+The App Router in Next.js 14 brings several exciting features:
+
+- **Server Components by Default**: Improved performance with automatic server-side rendering
+- **Streaming and Suspense**: Better user experience with progressive rendering
+- **Server Actions**: Simplified data mutations without API routes
+- **Improved Caching**: More control over caching strategies
+
+## Setting Up Your Project
+
+First, create a new Next.js project:
+
+```bash
+npx create-next-app@latest my-app
+cd my-app
+npm run dev
+```
+
+## App Router Basics
+
+The App Router uses a file-system based router where folders define routes. Here's the basic structure:
+
+```
+app/
+  layout.tsx    # Root layout
+  page.tsx      # Home page
+  about/
+    page.tsx    # About page
+  blog/
+    page.tsx    # Blog listing
+    [slug]/
+      page.tsx  # Dynamic blog post
+```
+
+## Server Components
+
+By default, all components in the App Router are Server Components. This means they run on the server and send HTML to the client:
+
+```tsx
+// This is a Server Component
+export default async function Page() {
+  const data = await fetch('https://api.example.com/data')
+  const json = await data.json()
+  
+  return <div>{json.title}</div>
+}
+```
+
+## Client Components
+
+When you need interactivity, use the `"use client"` directive:
+
+```tsx
+"use client"
+
+import { useState } from 'react'
+
+export default function Counter() {
+  const [count, setCount] = useState(0)
+  
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      Count: {count}
+    </button>
+  )
+}
+```
+
+## Layouts and Templates
+
+Layouts wrap multiple pages and persist across navigation:
+
+```tsx
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en">
+      <body>
+        <nav>Navigation</nav>
+        {children}
+        <footer>Footer</footer>
+      </body>
+    </html>
+  )
+}
+```
+
+## Data Fetching
+
+Next.js 14 makes data fetching simple with async/await:
+
+```tsx
+async function getData() {
+  const res = await fetch('https://api.example.com/data', {
+    cache: 'force-cache' // Static generation
+  })
+  return res.json()
+}
+
+export default async function Page() {
+  const data = await getData()
+  return <main>{data.title}</main>
+}
+```
+
+## Best Practices
+
+1. **Use Server Components by Default**: Only use Client Components when needed
+2. **Optimize Images**: Use next/image for automatic optimization
+3. **Implement Loading States**: Use loading.tsx for better UX
+4. **Handle Errors Gracefully**: Use error.tsx for error boundaries
+5. **Leverage Caching**: Understand and use caching strategies effectively
+
+## Conclusion
+
+Next.js 14's App Router represents a major step forward in React framework development. By embracing Server Components and improving developer experience, it makes building performant web applications easier than ever.
+
+Start experimenting with these features in your next project, and you'll quickly see the benefits!
+
+## Resources
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [App Router Guide](https://nextjs.org/docs/app)
+- [Server Components](https://nextjs.org/docs/app/building-your-application/rendering/server-components)
