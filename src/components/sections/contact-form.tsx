@@ -120,7 +120,7 @@ export function ContactForm() {
             <CardHeader>
               <CardTitle>Send a Message</CardTitle>
               <CardDescription>
-                Fill out the form below and I'll get back to you as soon as possible.
+                Fill out the form below and I&apos;ll get back to you as soon as possible.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -181,7 +181,7 @@ export function ContactForm() {
 
                 {isSubmitted && (
                   <p className="text-sm text-green-600 text-center">
-                    Message sent successfully! I'll get back to you soon.
+                    Message sent successfully! I&apos;ll get back to you soon.
                   </p>
                 )}
               </form>
