@@ -16,7 +16,7 @@ export const siteConfig: SiteConfig = {
   url: "https://yourportfolio.com",
   ogImage: "https://yourportfolio.com/og-image.png",
   links: {
-    twitter: "https://twitter.com/yourusername",
+    // twitter: "https://twitter.com/yourusername",
     github: "https://github.com/Mohamedkamaludeen",
     linkedin: "https://www.linkedin.com/in/mohamed-kamaludeen-b171b820a/",
     email: "mohamedkamaludeen48@gmail.com",
