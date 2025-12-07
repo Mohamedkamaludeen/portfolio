@@ -34,9 +34,15 @@ export function ContactForm() {
   });
 
   const onSubmit = async (data: FormData) => {
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log(data);
+    // Open email client with pre-filled data
+    const subject = encodeURIComponent(data.subject);
+    const body = encodeURIComponent(
+      `Name: ${data.name}\nEmail: ${data.email}\n\nMessage:\n${data.message}`
+    );
+    const mailtoLink = `mailto:${contactConfig.email}?subject=${subject}&body=${body}`;
+    
+    window.location.href = mailtoLink;
+    
     setIsSubmitted(true);
     reset();
     setTimeout(() => setIsSubmitted(false), 5000);

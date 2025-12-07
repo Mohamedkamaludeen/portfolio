@@ -7,13 +7,17 @@ import { SlideUp } from "@/components/animations/slide-up";
 import { StaggerContainer, StaggerItem } from "@/components/animations/stagger";
 import { aboutConfig, heroConfig } from "@/config/siteConfig";
 import { generateSEO } from "@/lib/seo";
+import profile  from '../../../public/profile.jpg'
 
 export const metadata: Metadata = generateSEO({
   title: "About Me",
   description: aboutConfig.bio,
 });
 
+
+
 export default function AboutPage() {
+  console.log('aboutConfig.image', aboutConfig.image);
   return (
     <div className="container py-20">
       <div className="max-w-4xl mx-auto space-y-12">
@@ -30,12 +34,16 @@ export default function AboutPage() {
           <Card>
             <CardContent className="p-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <div className="relative aspect-square rounded-lg overflow-hidden bg-muted">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-                    <span className="text-8xl font-bold text-muted-foreground/20">
-                      <Image src={aboutConfig.image} alt="Profile" fill />
-                    </span>
-                  </div>
+                <div className="relative w-full aspect-square rounded-lg overflow-hidden bg-muted">
+                  <Image 
+                    src={aboutConfig.image} 
+                    alt="Mohamed Kamaludeen - Profile Picture" 
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                    priority
+                    unoptimized
+                  />
                 </div>
                 <div className="space-y-4">
                   <h2 className="text-2xl font-bold">A Little About Me</h2>

@@ -17,7 +17,7 @@ export function generateSEO({
   image = "/og-image.png",
   url = "https://yourportfolio.com",
   type = "website",
-  author = "Your Name",
+  author = "Mohamed Kamaludeen",
   publishedTime,
   tags = [],
 }: SEOProps): Metadata {
