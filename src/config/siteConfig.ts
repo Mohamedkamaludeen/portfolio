@@ -77,11 +77,11 @@ export const socialLinks: SocialLink[] = [
     url: "https://www.linkedin.com/in/mohamed-kamaludeen-b171b820a/",
     icon: "Linkedin",
   },
-  {
-    name: "Twitter",
-    url: "https://twitter.com/yourusername",
-    icon: "Twitter",
-  },
+  // {
+  //   name: "Twitter",
+  //   url: "https://twitter.com/yourusername",
+  //   icon: "Twitter",
+  // },
   {
     name: "Email",
     url: "mailto:mohamedkamaludeen48@gmail.com",
