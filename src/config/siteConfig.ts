@@ -104,7 +104,7 @@ export const heroConfig = {
     "Open Source Contributor",
     "Aws Certified Developer",
   ],
-  resumeUrl: "/kamaludeen_resume.pdf",
+  resumeUrl: "https://mohamedkamaludeen.github.io/portfolio/kamaludeen_resume.pdf",
 };
 
 // ==========================================
@@ -117,7 +117,7 @@ export const aboutConfig = {
 When I'm not coding, you can find me exploring new technologies, contributing to open source, or sharing my knowledge through blog posts and tutorials.
 
 I believe in continuous learning and staying up-to-date with the latest industry trends. My goal is to create products that not only look great but also provide exceptional user experiences.`,
-  image: "/profile.jpg",
+  image: "https://mohamedkamaludeen.github.io/portfolio/profile.jpg",
   stats: [
     { label: "Years Experience", value: "4+" },
     { label: "Projects Completed", value: "50+" },
